@@ -519,13 +519,80 @@ nav ul li.active a::after {
     background-color: var(--light-color);
 }
 
+.service-carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
 .service-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
     gap: 2rem;
-    max-width: 1400px;
+    max-width: calc(100% - 100px);
     margin: 0 auto;
     text-align: center;
+}
+
+.carousel-arrow {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-arrow:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.prev-arrow {
+    left: 0;
+}
+
+.next-arrow {
+    right: 0;
+}
+
+.carousel-arrow.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #999;
+    transform: none;
+}
+
+/* Adaptation pour les appareils mobiles */
+@media (max-width: 768px) {
+    .service-carousel-container {
+        padding: 0 30px;
+    }
+    
+    .service-cards {
+        max-width: 100%;
+    }
+    
+    .card {
+        flex: 0 0 calc(100% - 1rem);
+    }
+    
+    .carousel-arrow {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .card {
@@ -534,6 +601,8 @@ nav ul li.active a::after {
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
+    flex: 0 0 calc(33.333% - 1.33rem); /* Chaque carte prend 1/3 de l'espace moins un peu pour le gap */
+    min-width: 250px;
 }
 
 .card:hover {

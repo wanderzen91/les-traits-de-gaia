@@ -1,5 +1,7 @@
 // Initialisation de toutes les fonctionnalités au chargement du DOM
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialisation du carrousel des services
+    initServiceCarousel();
     // Référence aux éléments DOM fréquemment utilisés
     const header = document.querySelector('header');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -421,6 +423,141 @@ window.addEventListener('load', function() {
     
     initCounters();
 });
+
+// Fonction pour initialiser le carrousel des services
+function initServiceCarousel() {
+    const serviceCards = document.querySelector('.service-cards');
+    const prevArrow = document.querySelector('.prev-arrow');
+    const nextArrow = document.querySelector('.next-arrow');
+    const carouselContainer = document.querySelector('.service-carousel-container');
+    
+    if (!serviceCards || !prevArrow || !nextArrow) return;
+    
+    // Calculer la largeur d'une carte (incluant les marges)
+    const cards = serviceCards.querySelectorAll('.card');
+    if (cards.length <= 3) {
+        // Si moins de 4 cartes, cacher les flèches
+        prevArrow.style.display = 'none';
+        nextArrow.style.display = 'none';
+        return;
+    }
+    
+    // Position actuelle du carrousel
+    let currentPosition = 0;
+    // Nombre total de cartes
+    const totalCards = cards.length;
+    // Nombre de cartes visibles à la fois
+    const visibleCards = 3;
+    // Nombre de positions possibles
+    const maxPosition = totalCards - visibleCards;
+    // Intervalle de défilement automatique (en ms)
+    const autoScrollInterval = 8000; // 8 secondes
+    // Variable pour stocker l'ID de l'intervalle
+    let autoScrollTimer;
+    // Flag pour indiquer si l'utilisateur interagit avec le carrousel
+    let userInteracting = false;
+    
+    // Mettre à jour l'état des flèches
+    function updateArrowState() {
+        prevArrow.disabled = currentPosition === 0;
+        nextArrow.disabled = currentPosition >= maxPosition;
+        
+        // Ajouter/supprimer une classe pour le style visuel
+        prevArrow.classList.toggle('disabled', currentPosition === 0);
+        nextArrow.classList.toggle('disabled', currentPosition >= maxPosition);
+    }
+    
+    // Fonction pour faire défiler le carrousel
+    function scrollCarousel(direction) {
+        if (direction === 'prev' && currentPosition > 0) {
+            currentPosition--;
+        } else if (direction === 'next' && currentPosition < maxPosition) {
+            currentPosition++;
+        } else if (direction === 'next' && currentPosition >= maxPosition) {
+            // Revenir au début si on est à la fin (pour le défilement automatique)
+            currentPosition = 0;
+        }
+        
+        // Calculer la position de défilement
+        const cardWidth = cards[0].offsetWidth;
+        const gapWidth = parseInt(window.getComputedStyle(serviceCards).columnGap || '32');
+        const scrollAmount = currentPosition * (cardWidth + gapWidth);
+        
+        // Faire défiler le conteneur
+        serviceCards.scrollLeft = scrollAmount;
+        
+        // Mettre à jour l'état des flèches
+        updateArrowState();
+    }
+    
+    // Fonction pour démarrer le défilement automatique
+    function startAutoScroll() {
+        if (autoScrollTimer) clearInterval(autoScrollTimer);
+        
+        autoScrollTimer = setInterval(() => {
+            if (!userInteracting) {
+                scrollCarousel('next');
+            }
+        }, autoScrollInterval);
+    }
+    
+    // Fonction pour arrêter le défilement automatique
+    function stopAutoScroll() {
+        if (autoScrollTimer) {
+            clearInterval(autoScrollTimer);
+            autoScrollTimer = null;
+        }
+    }
+    
+    // Ajouter les écouteurs d'événements aux flèches
+    prevArrow.addEventListener('click', () => {
+        userInteracting = true;
+        scrollCarousel('prev');
+        // Réinitialiser le timer après l'interaction de l'utilisateur
+        setTimeout(() => { userInteracting = false; }, 5000);
+    });
+    
+    nextArrow.addEventListener('click', () => {
+        userInteracting = true;
+        scrollCarousel('next');
+        // Réinitialiser le timer après l'interaction de l'utilisateur
+        setTimeout(() => { userInteracting = false; }, 5000);
+    });
+    
+    // Arrêter le défilement automatique lorsque l'utilisateur survole le carrousel
+    carouselContainer.addEventListener('mouseenter', () => {
+        userInteracting = true;
+    });
+    
+    carouselContainer.addEventListener('mouseleave', () => {
+        userInteracting = false;
+    });
+    
+    // Arrêter le défilement automatique lorsque l'utilisateur touche le carrousel (mobile)
+    carouselContainer.addEventListener('touchstart', () => {
+        userInteracting = true;
+    });
+    
+    carouselContainer.addEventListener('touchend', () => {
+        // Réinitialiser après un délai pour permettre à l'utilisateur de finir son interaction
+        setTimeout(() => { userInteracting = false; }, 5000);
+    });
+    
+    // Démarrer le défilement automatique
+    startAutoScroll();
+    
+    // Initialiser l'état des flèches
+    updateArrowState();
+    
+    // Arrêter le défilement automatique lorsque la page n'est pas visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoScroll();
+        } else {
+            startAutoScroll();
+        }
+    });
+}
 
 // Chargement des scripts externes
 function loadScript(url, callback) {
