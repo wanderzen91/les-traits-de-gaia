@@ -422,10 +422,6 @@ nav ul li.active a::after {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('../photos_site/attelage.JPG');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -433,6 +429,29 @@ nav ul li.active a::after {
     color: white;
     padding-top: 80px;
     position: relative;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Overlay sombre sur la vidéo */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+    z-index: -1;
 }
 
 /* Animation de particules pour effet naturel */
@@ -474,7 +493,7 @@ nav ul li.active a::after {
 }
 
 .hero h2 {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 1.5rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
