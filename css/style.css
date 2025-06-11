@@ -729,29 +729,24 @@ nav ul li.active a::after {
     font-size: 1.8rem;
 }
 
-.vignes-paragraphs p {
-    margin-bottom: 1rem;
-    line-height: 1.7;
-}
-
-.vignes-paragraphs p:first-child {
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.vignes-advantages {
+.vignes-advantages-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
 }
 
 .advantage-item {
     background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .advantage-item:hover {
@@ -761,13 +756,86 @@ nav ul li.active a::after {
 
 .advantage-item i {
     font-size: 2.5rem;
-    color: var(--primary-color);
     margin-bottom: 1rem;
+    color: var(--primary-color);
 }
 
 .advantage-item h4 {
-    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
     color: var(--primary-color);
+}
+
+.advantage-item p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Media queries pour assurer la responsivité */
+@media (max-width: 768px) {
+    .vignes-advantages-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vignes-content,
+    .attelage-content {
+        flex-direction: column;
+    }
+    
+    .vignes-image,
+    .vignes-text,
+    .attelage-image,
+    .attelage-text {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    .benefit-item {
+        padding: 1.25rem;
+    }
+    
+    .benefit-item i {
+        font-size: 1.8rem;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .benefit-text p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .advantage-item {
+        padding: 1rem;
+    }
+    
+    .advantage-item i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .advantage-item h4 {
+        font-size: 1.1rem;
+    }
+    
+    .attelage-text > p {
+        font-size: 1rem;
+    }
+    
+    .benefit-item {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .benefit-item i {
+        margin-bottom: 0.75rem;
+        font-size: 1.6rem;
+    }
 }
 
 /* Attelage styles */
@@ -828,6 +896,7 @@ nav ul li.active a::after {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .benefit-item {
