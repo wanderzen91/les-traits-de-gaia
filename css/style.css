@@ -1684,3 +1684,61 @@ footer {
     }
 }
 
+
+
+/* --- Patch: enable native swipe on small screens --- */
+@media (max-width: 768px) {
+  .service-carousel-container {
+    padding: 0 0.5rem;
+  }
+  .service-cards {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1rem;
+    gap: 1rem;
+    max-width: 100%;
+    transform: none !important;
+  }
+  .service-cards .card {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+  }
+  .carousel-arrow {
+    display: none !important;
+  }
+}
+
+
+
+/* --- Patch: add safe spacing to avoid h3 overlapping images --- */
+.vignes-text h3,
+.member-info h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+  .vignes-content,
+  .main-member {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vignes-content,
+  .main-member {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .vignes-image,
+  .member-image {
+    min-width: 0;
+  }
+  .vignes-text h3,
+  .member-info h3 {
+    margin-top: 3rem;
+  }
+}
+
