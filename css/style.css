@@ -538,11 +538,6 @@ nav ul li.active a::after {
     background-color: var(--light-color);
 }
 
-/* Entretien Section - Same styling as Services */
-.entretien {
-    background-color: var(--light-color);
-}
-
 .service-carousel-container {
     display: flex;
     align-items: center;
@@ -778,70 +773,21 @@ nav ul li.active a::after {
     margin: 0;
 }
 
-/* Espaces Naturels Section - Same structure as Vignes */
-.espaces-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.espaces-content {
-    display: flex;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.espaces-image {
-    flex: 1;
-    min-width: 400px;
-}
-
-.espaces-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.espaces-text {
-    flex: 1.5;
-    padding: 2rem;
-}
-
-.espaces-text h3 {
-    margin-bottom: 1.5rem;
-    color: var(--primary-color);
-    font-size: 1.8rem;
-}
-
-.espaces-advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 4rem;
-}
-
 /* Media queries pour assurer la responsivité */
 @media (max-width: 768px) {
-    .vignes-advantages-grid,
-    .espaces-advantages-grid {
+    .vignes-advantages-grid {
         grid-template-columns: 1fr;
     }
     
     .vignes-content,
-    .attelage-content,
-    .espaces-content {
+    .attelage-content {
         flex-direction: column;
     }
     
     .vignes-image,
     .vignes-text,
     .attelage-image,
-    .attelage-text,
-    .espaces-image,
-    .espaces-text {
+    .attelage-text {
         width: 100%;
         min-width: 100%;
     }
@@ -1625,16 +1571,14 @@ footer {
     .contact-container,
     .main-member,
     .vignes-content,
-    .attelage-content,
-    .espaces-content {
+    .attelage-content {
         flex-direction: column;
     }
 
     .about-image,
     .member-image,
     .vignes-image,
-    .attelage-image,
-    .espaces-image {
+    .attelage-image {
         margin-bottom: 2rem;
         min-width: 100%;
         max-height: 400px;
@@ -1735,8 +1679,7 @@ footer {
     }
     
     .vignes-advantages,
-    .attelage-events,
-    .espaces-advantages-grid {
+    .attelage-events {
         grid-template-columns: 1fr;
     }
 }
@@ -1771,7 +1714,6 @@ footer {
 
 /* --- Patch: add safe spacing to avoid h3 overlapping images --- */
 .vignes-text h3,
-.espaces-text h3,
 .member-info h3 {
   margin-top: 2rem;
   margin-bottom: 1rem;
@@ -1779,7 +1721,6 @@ footer {
 
 @media (max-width: 992px) {
   .vignes-content,
-  .espaces-content,
   .main-member {
     gap: 1.5rem;
   }
@@ -1787,18 +1728,15 @@ footer {
 
 @media (max-width: 768px) {
   .vignes-content,
-  .espaces-content,
   .main-member {
     flex-direction: column;
     align-items: stretch;
   }
   .vignes-image,
-  .espaces-image,
   .member-image {
     min-width: 0;
   }
   .vignes-text h3,
-  .espaces-text h3,
   .member-info h3 {
     margin-top: 3rem;
   }
